@@ -1,9 +1,11 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-import Header from '../components/Header';
-// import { User } from '../types/User';
+import Header from '../components/Header/Header.tsx';
+import { User } from '../types/User';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (): {
+	user: User;
+} => {
 	try {
 		const response = await fetch(
 			'https://jsonplaceholder.typicode.com/users/1'
@@ -19,9 +21,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Home({
 	user
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-	return (
+	return user ? (
 		<div className="flex flex-col h-screen bg-gray-800 text-gray-100">
-			<Header id="1" />
+			<Header user={user} />
 			<section className="p-4">
 				<h1 className="text-2xl">The Title</h1>
 				<p className="pt-2">
@@ -32,5 +34,7 @@ export default function Home({
 				</p>
 			</section>
 		</div>
+	) : (
+		<div>Error</div>
 	);
 }

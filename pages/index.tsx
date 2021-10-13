@@ -1,17 +1,17 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-import Header from '../components/Header/Header.tsx';
+import Header from '../components/Header/Header';
 import { User } from '../types/User';
 
-export const getServerSideProps: GetServerSideProps = async (): {
+export const getServerSideProps: GetServerSideProps<{
 	user: User;
-} => {
+}> = async () => {
 	try {
 		const response = await fetch(
 			'https://jsonplaceholder.typicode.com/users/1'
 		);
 		const user = await response.json();
-		return { props: { user: user } };
+		return { props: { user } };
 	} catch (e) {
 		console.log(e);
 		return { props: { user: null } };

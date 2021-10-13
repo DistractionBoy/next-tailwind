@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<{
 
 export default function BlogPage({
   user
-}: InferGetServerSidePropsType<typeof GetServerSideProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return user ? (
     <div className="flex flex-col h-screen bg-gray-800 text-gray-100">
       <Header user={user} />
